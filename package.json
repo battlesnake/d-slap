@@ -1,0 +1,37 @@
+{
+  "name": "dslap",
+  "version": "0.0.1",
+  "description": "Domain specific languages and parsers (d-slap for short as I'm very immature)",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "dependencies": {
+    "lodash": "^3.9.3",
+    "require-dir": "^0.3.0"
+  },
+  "devDependencies": {
+    "chai": "^2.3.0",
+    "mocha": "^2.2.5"
+  },
+  "scripts": {
+    "test": "mocha tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/battlesnake/d-slap.git"
+  },
+  "keywords": [
+    "d-slap",
+    "dsl",
+    "languages",
+    "parsers",
+    "comprehension"
+  ],
+  "author": "Mark K Cowan",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/battlesnake/d-slap/issues"
+  },
+  "homepage": "https://github.com/battlesnake/d-slap#readme"
+}
