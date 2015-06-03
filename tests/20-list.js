@@ -180,8 +180,7 @@ describe('List comprehension parser', function () {
 
 			expect(duration).to.be.below(target);
 
-			console.info('Average compile time for list comprehension ' +
-				'parser: ' + duration.toFixed(2) + 'ms');
+//			console.info('\tAverage compile time for list comprehension ' + 'parser: ' + duration.toFixed(2) + 'ms');
 
 		});
 
@@ -203,8 +202,7 @@ describe('List comprehension parser', function () {
 
 			expect(duration).to.be.below(target);
 
-			console.info('Average parse time for all ' + ngOptions.length +
-				' ngOptions examples: ' + duration.toFixed(2) + 'ms');
+//			console.info('\tAverage parse time for all ' + ngOptions.length + ' ngOptions examples: ' + duration.toFixed(2) + 'ms');
 
 		});
 

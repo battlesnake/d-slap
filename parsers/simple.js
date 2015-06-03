@@ -11,7 +11,8 @@ simpleParser.unparse = simpleUnparser;
  * The expression to parse
  *
  * @param {language} language
- * The language definition to use to parse the expression.
+ * The language definition to use to parse the expression.  Entities, start, and
+ * end criteria may either be characters or arrays of characters.
  *
  * @returns {parsetree}
  * The parse tree
@@ -41,7 +42,7 @@ function simpleParser(expr, language) {
 		/*
 		 * Entity (self-closing, has no contents)
 		 *
-		 * If eneity has multiple start/end characters, the start/end
+		 * If entity has multiple start/end characters, the start/end
 		 * properties (which would be arrays) must be equal BY REFERENCE.
 		 *
 		 * Also, ANY end character will end the group, not necessarily the

@@ -26,7 +26,9 @@ var comprehensionLanguage = require('../languages/comprehension');
  * {@link simpleParser}, then builds a regular
  * expression from the parse tree and builds a mapping table which maps from
  * the regular expression's numbered capture groups to the named capture
- * groups as specified by the comprehension syntax.
+ * groups as specified by the comprehension syntax.  Thus, re-using a parser to
+ * parse many expressions is pretty quick as the actual string parsing is done
+ * by native code (the RegExp engine).
  *
  * @todo
  * Decouple this from the comprehensionLanguage, so that the regex compiler

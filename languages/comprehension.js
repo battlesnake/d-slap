@@ -1,4 +1,4 @@
-var languageBuilder = require('../language-builder');
+var languageBuilder = require('../util/language-builder');
 
 module.exports = comprehensionLanguage();
 
@@ -59,8 +59,8 @@ function comprehensionLanguage() {
 			/* Optional groups are specified as [stuff], equivalent to [stuff|] */
 			options: { start: '[', end: ']', subgroups: ['expression'] },
 			/* Choices are specified as [this|that], one option MUST be chosen */
-			choice: { start: '|', end: '|' },
+			choice: { entity: '|' },
 			/* White space */
-			whitespace: { start: spaces, end: spaces },
+			whitespace: { entity: spaces }
 		});
 }
