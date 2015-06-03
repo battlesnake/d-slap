@@ -1,7 +1,7 @@
 var _ = require('lodash');
 var listLanguage = require('../languages/list');
 var comprehensionParser = require('./comprehension');
-var evaluate = require('./evaluate');
+var arithmetic = require('./arithmetic');
 
 module.exports = listParser();
 
@@ -73,7 +73,7 @@ function listParser() {
 		fillDefaults(comp);
 
 		/* Function(scope) which gets the data source */
-		var sourceGetter = evaluate(comp.source);
+		var sourceGetter = arithmetic(comp.source);
 
 		/*
 		 * Parse mapping expressions and store accessors as
@@ -130,7 +130,7 @@ function listParser() {
 		 * expression.
 		 */
 		function getField(expr) {
-			var parsed = evaluate(expr);
+			var parsed = arithmetic(expr);
 			/**
 			 * @function get
 			 * @private
