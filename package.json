@@ -1,6 +1,6 @@
 {
   "name": "dslap",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Domain specific languages and parsers (d-slap for short as I'm very immature)",
   "main": "index.js",
   "directories": {

@@ -82,7 +82,7 @@ describe('List comprehension parser', function () {
 			'item.label as item.label group by item.group for item in items track by item.label');
 		test('item.value as item.label group by item.group for item in items',
 			'item.value as item.label group by item.group for item in items track by item.value');
-		
+
 		test('item.value as item.label group by item.group for item in items track by item.id',
 			'item.value as item.label group by item.group for item in items track by item.id');
 		test('key for (key, value) in object',
