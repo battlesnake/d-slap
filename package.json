@@ -1,14 +1,13 @@
 {
   "name": "dslap",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Domain specific languages and parsers (d-slap for short as I'm very immature)",
   "main": "index.js",
   "directories": {
     "test": "tests"
   },
   "dependencies": {
-    "lodash": "^3.9.3",
-    "require-dir": "^0.3.0"
+    "lodash": "^3.9.3"
   },
   "devDependencies": {
     "chai": "^2.3.0",
