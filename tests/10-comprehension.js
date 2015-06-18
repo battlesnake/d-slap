@@ -4,7 +4,7 @@ var expect = chai.expect;
 var comprehensionParser = require('../parsers/comprehension');
 
 /**
- * @name comprehension-parser
+ * @name comprehensionParserTest
  */
 describe('Comprehension parser', function () {
 

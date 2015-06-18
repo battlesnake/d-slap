@@ -6,7 +6,7 @@ var arithmeticLanguage = require('../languages/arithmetic');
 var _ = require('lodash');
 
 /**
- * @name recursive-parser
+ * @name arithmeticParserTest
  */
 describe('Arithmetic parser', function () {
 

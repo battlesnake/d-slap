@@ -5,10 +5,10 @@ var simpleParser = require('../parsers/simple');
 var _ = require('lodash');
 
 /**
- * @name simple-parser
+ * @name simpleParserTest
  */
-
 describe('Simple parser', function () {
+
 	/* Define a language */
 	var outer = { name: 'outer', start: '{', end: '}', subgroups: [] };
 	var inner = { name: 'inner', start: '[', end: ']', subgroups: [] };

@@ -36,6 +36,9 @@ var arithmeticLanguage = require('../languages/arithmetic');
  *
  * The function parses the arithmetic expression using the
  * {@link recursiveParser}, given the {@link arithmeticLanguage} definition.
+ *
+ * @example
+ * See @{arithmeticParserTest}
  */
 
 module.exports = arithmeticEvaluatorFactory;

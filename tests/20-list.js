@@ -5,7 +5,7 @@ var listParser = require('../parsers/list');
 var _ = require('lodash');
 
 /**
- * @name list-parser
+ * @name listParserTest
  */
 
 /* Angular ng-options example expressions */
@@ -162,7 +162,7 @@ describe('List comprehension parser', function () {
 
 	describe('Performance', function () {
 
-		var repeat = 50;
+		var repeat = 10;
 		var target = 2;
 
 		it('Compiles the parser in under ' + target + 'ms ' +

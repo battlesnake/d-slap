@@ -35,6 +35,7 @@ module.exports = listParser();
  * expression.  The data source can be a promise.
  *
  * @example
+ * See {@comprehensionParserTest}
  *
  *     <my:directive my:source="item.title for item in model.items"/>
  *

@@ -8,8 +8,8 @@ module.exports = comprehensionLanguage();
  * @description
  * Domain specific language for comprehension expressions
  *
- * Is passed to the {@link simpleParseService} to parse comprehension
- * expression templates.
+ * Is passed to the {@link simpleParser} to parse comprehension expression
+ * templates.
  *
  * Named capture:
  *
@@ -36,11 +36,11 @@ module.exports = comprehensionLanguage();
  *  * Entity which if present, separates the current expression into several
  *    possible choices
  *
- * See {@link languageBuilderService}
+ * See {@link languageBuilder}
  *
  * Note that due to the final parser being formulated as a regular expression,
  * the comprehension language may only describe Chomsky type-3 grammars.
- * Specifically, this forbids recursion.
+ * Specifically, this forbids recursion / nesting.
  *
  * @example
  *

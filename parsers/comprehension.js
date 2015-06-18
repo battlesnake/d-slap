@@ -35,6 +35,9 @@ var comprehensionLanguage = require('../languages/comprehension');
  * and capture engine can operate on any language specification which
  * implements a subset of the features of the comprehension language (using
  * the same naming).
+ *
+ * @example
+ * See {@comprehensionParserTest}
  */
 
 module.exports = comprehensionParserFactory;
