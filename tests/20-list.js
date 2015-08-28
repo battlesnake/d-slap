@@ -162,8 +162,10 @@ describe('List comprehension parser', function () {
 
 	describe('Performance', function () {
 
-		var repeat = 10;
+		var repeat = 100;
 		var target = 2;
+
+		this.timeout(target * repeat);
 
 		it('Compiles the parser in under ' + target + 'ms ' +
 			'(averaging over ' + repeat + ' runs)', function () {
