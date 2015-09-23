@@ -105,8 +105,10 @@ function recursiveParser(expr, language, options) {
 				continue;
 			}
 			/* Nothing matched */
-			throw new Error('Syntax error at character ' + pos);
+			throw new Error('Syntax error at character ' + pos + '\n> ' +
+				expr + '\n  ' + space(pos - 1) + '^');
 		}
+		function space(n) { for (var s=''; n >= 0; --n) { s += ' '; } return s; }
 		if (group.isRoot) {
 			/* Return root */
 			return resultFactory('group', {
