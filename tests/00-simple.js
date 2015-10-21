@@ -1,8 +1,11 @@
 var chai = require('chai');
 var should = chai.should();
 var expect = chai.expect;
-var simpleParser = require('../parsers/simple');
+
 var _ = require('lodash');
+require('blanket');
+
+var simpleParser = require('../parsers/simple');
 
 /**
  * @name simpleParserTest

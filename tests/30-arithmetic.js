@@ -1,9 +1,12 @@
 var chai = require('chai');
 var should = chai.should();
 var expect = chai.expect;
+
+var _ = require('lodash');
+require('blanket');
+
 var arithmetic = require('../parsers/arithmetic');
 var arithmeticLanguage = require('../languages/arithmetic');
-var _ = require('lodash');
 
 /**
  * @name arithmeticParserTest

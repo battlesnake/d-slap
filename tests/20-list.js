@@ -1,8 +1,11 @@
 var chai = require('chai');
 var should = chai.should();
 var expect = chai.expect;
-var listParser = require('../parsers/list');
+
 var _ = require('lodash');
+require('blanket');
+
+var listParser = require('../parsers/list');
 
 /**
  * @name listParserTest
