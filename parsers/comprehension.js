@@ -42,6 +42,10 @@ var comprehensionLanguage = require('../languages/comprehension');
 
 module.exports = comprehensionParserFactory;
 
+const defaultOpts = {
+	whitespace: '\\s+'
+};
+
 /**
  * @name comprehensionParserFactory
  * @private
@@ -49,9 +53,10 @@ module.exports = comprehensionParserFactory;
  * @description
  * See {@link comprehensionLanguage}
  */
-function comprehensionParserFactory(comprehension) {
+function comprehensionParserFactory(comprehension, opts) {
+	opts = _.defaults({}, opts, defaultOpts);
 	var parseTree = parseComprehensionSyntax(comprehension);
-	var comprehensionParser = compileComprehensionParser(parseTree);
+	var comprehensionParser = compileComprehensionParser(parseTree, opts);
 
 	parseComprehension.parser = comprehensionParser;
 
@@ -104,7 +109,8 @@ function parseComprehensionSyntax(sentence) {
  * Generates a parser regex and a capture-index mapping from a
  * comprehension parse tree
  */
-function compileComprehensionParser(parseTree) {
+function compileComprehensionParser(parseTree, opts) {
+	opts = _.defaults({}, opts, defaultOpts);
 	optimizeWhitespace(parseTree);
 	/*
 	 * If you want to see what optimizeWhitespace does, use the
@@ -295,6 +301,6 @@ function compileComprehensionParser(parseTree) {
 
 	/* Output whitespace */
 	function whitespace() {
-		return '\\s+';
+		return opts.whitespace;
 	}
 }
