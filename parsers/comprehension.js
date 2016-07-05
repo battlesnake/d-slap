@@ -43,7 +43,8 @@ var comprehensionLanguage = require('../languages/comprehension');
 module.exports = comprehensionParserFactory;
 
 const defaultOpts = {
-	whitespace: '\\s+'
+	whitespace: '\\s',
+	capture: '(?:(?:{\\[)(.+?)(?:\\]})|\\b(?!{\\[)(\\S+))'
 };
 
 /**
@@ -129,7 +130,7 @@ function compileComprehensionParser(parseTree, opts) {
 	var captureIndex = 0;
 	var matchMaps = {};
 	/* Match entire string but allow whitespace at the ends */
-	var rx = reduceWhitespace('^\\s*' + group(root) + '\\s*$');
+	var rx = reduceWhitespace('^' + opts.whitespace + '*' + group(root) + opts.whitespace + '*$');
 	return {
 		regex: new RegExp(rx, 'i'),
 		matchMaps: matchMaps
@@ -242,8 +243,8 @@ function compileComprehensionParser(parseTree, opts) {
 	 */
 	function reduceWhitespace(rx) {
 		return rx
-			.replace(/(\\s\*){2,}/g, '\\s*')
-			.replace(/(\\s[\+\*]){2,}/g, '\\s+');
+			.replace(new RegExp('(' + opts.whitespace + '\\*){2,}', 'g'), opts.whitespace + '*')
+			.replace(new RegExp('(' + opts.whitespace + '[\\+\\*]){2,}', 'g'), opts.whitespace + '+');
 	}
 
 	/* Compile a node */
@@ -253,7 +254,7 @@ function compileComprehensionParser(parseTree, opts) {
 
 	/* Output non-capturing group */
 	function group(subexpr) {
-		return '(?:' + subexpr.map(compile).join('\\s*') + ')';
+		return '(?:' + subexpr.map(compile).join(opts.whitespace + '*') + ')';
 	}
 
 	/* Output optional group or choice group */
@@ -291,7 +292,7 @@ function compileComprehensionParser(parseTree, opts) {
 		 */
 		matchMaps[name].push(++captureIndex);
 		matchMaps[name].push(++captureIndex);
-		return '(?:(?:{\\[)(.+?)(?:\\]})|\\b(?!{\\[)(\\S+))';
+		return opts.capture;
 	}
 
 	/* Output text */
@@ -301,6 +302,6 @@ function compileComprehensionParser(parseTree, opts) {
 
 	/* Output whitespace */
 	function whitespace() {
-		return opts.whitespace;
+		return opts.whitespace + '+';
 	}
 }
