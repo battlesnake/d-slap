@@ -1,4 +1,4 @@
-var _ = require('lodash');
+const _ = require('lodash');
 
 module.exports = simpleParser;
 
@@ -27,8 +27,8 @@ simpleParser.unparse = simpleUnparser;
  * a parse tree.
  */
 function simpleParser(expr, language) {
-	var i = 0;
-	var escapeChar = '\\';
+	let i = 0;
+	const escapeChar = '\\';
 	return getGroup({ name: 'result', start: null, end: null, subgroups: language });
 
 	/*
@@ -36,9 +36,9 @@ function simpleParser(expr, language) {
 	 * tree
 	 */
 	function getGroup(group) {
-		var result = [];
-		var token = '';
-		var c, subgroup;
+		const result = [];
+		let token = '';
+		let c, subgroup;
 		/*
 		 * Entity (self-closing, has no contents)
 		 *
@@ -63,10 +63,10 @@ function simpleParser(expr, language) {
 		 * a set of regular expressions for each subgroup combination once,
 		 * rather than it being done for each invocation of the parser.
 		 */
-		var isEndChar = group.end instanceof Array ?
+		const isEndChar = group.end instanceof Array ?
 			function (c) { return _.contains(group.end, c); } :
 			function (c) { return group.end === c; };
-		var escaped = false;
+		let escaped = false;
 		while (escaped || !isEndChar(c = getChar())) {
 			/* Test if char marks start of a subgroup */
 			if (!escaped && (subgroup = isSubgroup(c))) {
@@ -148,7 +148,7 @@ function simpleUnparser(tree, language) {
 		if (node.type === 'text') {
 			return node.value;
 		} else {
-			var block = _.findWhere(phrases, { name: node.type });
+			const block = _.findWhere(phrases, { name: node.type });
 			if (block.start === block.end) {
 				return ch(block.start);
 			} else {

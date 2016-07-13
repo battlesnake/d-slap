@@ -1,6 +1,6 @@
-var _ = require('lodash');
-var simpleParser = require('./simple');
-var comprehensionLanguage = require('../languages/comprehension');
+const _ = require('lodash');
+const simpleParser = require('./simple');
+const comprehensionLanguage = require('../languages/comprehension');
 
 /**
  * @name comprehensionParser
@@ -44,7 +44,9 @@ module.exports = comprehensionParserFactory;
 
 const defaultOpts = {
 	whitespace: '\\s',
-	capture: '(?:(?:{\\[)(.+?)(?:\\]})|\\b(?!{\\[)(\\S+))'
+	capture: '(?:(?:{\\[)(.+?)(?:\\]})|\\b(?!{\\[)(\\S+))',
+	groupsPerCapture: 2,
+	flags: 'u'
 };
 
 /**
@@ -56,8 +58,8 @@ const defaultOpts = {
  */
 function comprehensionParserFactory(comprehension, opts) {
 	opts = _.defaults({}, opts, defaultOpts);
-	var parseTree = parseComprehensionSyntax(comprehension);
-	var comprehensionParser = compileComprehensionParser(parseTree, opts);
+	const parseTree = parseComprehensionSyntax(comprehension);
+	const comprehensionParser = compileComprehensionParser(parseTree, opts);
 
 	parseComprehension.parser = comprehensionParser;
 
@@ -74,11 +76,11 @@ function comprehensionParserFactory(comprehension, opts) {
 	 * Apply the comprehension regex and pack the results
 	 */
 	function parseComprehension(value) {
-		var matches = value.match(comprehensionParser.regex);
+		const matches = value.match(comprehensionParser.regex);
 		if (!matches) {
 			return undefined;
 		}
-		var matchMaps = comprehensionParser.matchMaps;
+		const matchMaps = comprehensionParser.matchMaps;
 
 		return _.reduce(matchMaps, function (result, indices, name) {
 			result[name] = getCapture(name, indices);
@@ -87,7 +89,7 @@ function comprehensionParserFactory(comprehension, opts) {
 
 		/* Get the value of a capture */
 		function getCapture(name, indices) {
-			var captured = indices.filter(function (index) {
+			const captured = indices.filter(function (index) {
 				return matches[index] !== undefined;
 			});
 			if (captured.length === 0) {
@@ -119,18 +121,18 @@ function compileComprehensionParser(parseTree, opts) {
 	 * a string, and log it to the console along with the original
 	 * string that was parsed.
 	 */
-	var root = parseTree;
-	var compiler = {
+	const root = parseTree;
+	const compiler = {
 		text: text,
 		whitespace: whitespace,
 		capture: capture,
 		options: options,
 		choice: choice
 	};
-	var captureIndex = 0;
-	var matchMaps = {};
+	let captureIndex = 0;
+	const matchMaps = {};
 	/* Match entire string but allow whitespace at the ends */
-	var rx = reduceWhitespace('^' + opts.whitespace + '*' + group(root) + opts.whitespace + '*$');
+	const rx = reduceWhitespace('^' + opts.whitespace + '*' + group(root) + opts.whitespace + '*$');
 	return {
 		regex: new RegExp(rx, 'i'),
 		matchMaps: matchMaps
@@ -190,8 +192,8 @@ function compileComprehensionParser(parseTree, opts) {
 		 * nodes to one whitespace node.
 		 */
 		function consolidateWhitespace(nodes) {
-			var prev, curr, next;
-			var i = 0;
+			let prev, curr, next;
+			let i = 0;
 			while (i < nodes.length) {
 				prev = (i > 0) && nodes[i - 1];
 				curr = nodes[i];
@@ -223,10 +225,10 @@ function compileComprehensionParser(parseTree, opts) {
 		 * choice between its contents or mandatory whitespace
 		 */
 		function addWhitespaceOption(nodes) {
-			for (var i = 0; i < nodes.length; i++) {
-				var node = nodes[i];
-				var first = i === 0 || nodes[i - 1].type === 'choice';
-				var last = i === nodes.length - 1 || nodes[i + 1].type === 'choice';
+			for (let i = 0; i < nodes.length; i++) {
+				const node = nodes[i];
+				const first = i === 0 || nodes[i - 1].type === 'choice';
+				const last = i === nodes.length - 1 || nodes[i + 1].type === 'choice';
 				if (node.addWhitespaceBefore && !last ||
 					node.addWhitespaceAfter && !first) {
 					node.value.push({ type: 'choice' });
@@ -264,7 +266,7 @@ function compileComprehensionParser(parseTree, opts) {
 		 * entity as an immediate child token (in which case the group
 		 * is not optional).
 		 */
-		var isChoice = subexpr
+		const isChoice = subexpr
 			.some(function (expr) { return expr.type === 'choice'; });
 		return group(subexpr) + (isChoice ? '' : '?');
 	}
@@ -281,7 +283,7 @@ function compileComprehensionParser(parseTree, opts) {
 
 	/* Output capture group */
 	function capture(subexpr) {
-		var name = subexpr[0].value;
+		const name = subexpr[0].value;
 		if (!_.has(matchMaps, name)) {
 			matchMaps[name] = [];
 		}
@@ -290,8 +292,9 @@ function compileComprehensionParser(parseTree, opts) {
 		 *   Bare identifier: \b(?!{\[)(\S+)
 		 *   Braced identifier: (?:{\[)(.+?)(?:\]})
 		 */
-		matchMaps[name].push(++captureIndex);
-		matchMaps[name].push(++captureIndex);
+		for (let i = 0; i < opts.groupsPerCapture; i++) {
+			matchMaps[name].push(++captureIndex);
+		}
 		return opts.capture;
 	}
 
